@@ -93,5 +93,6 @@ const envs = {
 const envController = (req, res) => {
   res.json(envs);
 };
-app.get("/env");
+app.get("/env", envController);
+
 app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`));
