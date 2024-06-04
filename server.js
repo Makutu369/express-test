@@ -81,7 +81,7 @@ const students = [
   },
 ];
 app.use(express.json());
-app.get("/", (req, res) => {
+app.get("/news", (req, res) => {
   res.status(202).json(students);
 });
 
