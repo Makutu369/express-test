@@ -85,4 +85,13 @@ app.get("/news", (req, res) => {
   res.status(202).json(students);
 });
 
+const envs = {
+  firstone: process.env.myname,
+  secondOne: process.env.lastname,
+};
+
+const envController = (req, res) => {
+  res.json(envs);
+};
+app.get("/env");
 app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`));
