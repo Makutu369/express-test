@@ -1,8 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 import { Schools } from "./models/university.js";
 dotenv.config();
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -11,7 +13,7 @@ mongoose
   .catch((e) => console.log(e));
 
 const app = express();
-
+app.use(cors());
 const PORT = 35000;
 const students = [
   {
