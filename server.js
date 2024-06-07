@@ -1,4 +1,14 @@
 import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import { Schools } from "./models/university.js";
+dotenv.config();
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("connected to DB");
+  })
+  .catch((e) => console.log(e));
 
 const app = express();
 
@@ -83,6 +93,11 @@ const students = [
 app.use(express.json());
 app.get("/", (req, res) => {
   res.status(202).json(students);
+});
+
+app.get("/universities", async (req, res) => {
+  const school = await Schools.find({});
+  res.json(school);
 });
 
 app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`));
