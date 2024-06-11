@@ -1,16 +1,8 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cors from "cors";
-import { Schools } from "./models/university.js";
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const dotenv = require("dotenv");
 dotenv.config();
-
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("connected to DB");
-  })
-  .catch((e) => console.log(e));
 
 const app = express();
 app.use(cors());
@@ -92,14 +84,14 @@ const students = [
     class: "8C",
   },
 ];
+app.set("view engine", "ejs");
 app.use(express.json());
 app.get("/", (req, res) => {
   res.status(202).json(students);
 });
-
-app.get("/universities", async (req, res) => {
-  const school = await Schools.find({});
-  res.json(school);
+app.use(express.static(path.join(__dirname, "src")));
+app.get("/viewing", (req, res) => {
+  res.render("index");
 });
 
 app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`));
